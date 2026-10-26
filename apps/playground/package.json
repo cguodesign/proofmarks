@@ -1,0 +1,24 @@
+{
+  "name": "@proofmarks/playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 4173",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@proofmarks/core": "workspace:*",
+    "@proofmarks/dom": "workspace:*",
+    "@proofmarks/notations": "workspace:*",
+    "proofmarks": "workspace:*",
+    "prosemirror-commands": "^1.7.2",
+    "prosemirror-keymap": "^1.2.3",
+    "prosemirror-model": "^1.25.11",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-view": "^1.42.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

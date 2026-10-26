@@ -1,0 +1,27 @@
+# re:proofmarks
+
+> Proofmarks renders culturally specific proofreading notation over real, selectable browser text from plain correction data.
+
+Primary documentation:
+- Full agent context: /llms-full.txt
+- Offline package guide: node_modules/proofmarks/AGENT_GUIDE.md (ships with the npm package)
+- Site docs: /docs and /get-started
+
+Secondary references (repository):
+- Agent guide: https://github.com/cguodesign/proofmarks/blob/main/docs/agent-guide.md
+- Public API: https://github.com/cguodesign/proofmarks/blob/main/docs/public-api-v1.md
+- Five-minute quickstart: https://github.com/cguodesign/proofmarks/blob/main/docs/quickstart.md
+- Support matrix: https://github.com/cguodesign/proofmarks/blob/main/docs/support-matrix.md
+
+Agent contract:
+- Install `proofmarks`; use `proofmarks/react` or the vanilla root entry and one notation pack. `proofmarks/styles.css` is optional (default CSS variable values only).
+- The eight operations are delete, insert, replace, transpose, move, increase-spacing, decrease-spacing, and cancel-correction.
+- Offsets are UTF-16 code units over `getSourceText(root)`. Before mounting it equals the root's `textContent`; after mounting, raw `textContent` also includes SVG labels.
+- `decrease-spacing` targets existing whitespace only.
+- Correction JSON is notation-neutral; never encode proof symbols or geometry.
+- Do not guess between jis, gb, cns3927, ks, and enUS. Ask when the convention is unspecified, or expose a picker so end users choose.
+- Reserve room: `padding: 44px 20px` and `line-height: 1.8` on the root; start with 3–6 word-level corrections across 2–4 lines. Handle `insufficient-room` (its `collisions` field says what overlaps).
+- Handle `onIssue`; never fabricate unsupported notation. React reports `invalid-corrections`; vanilla create/update throw. Stale marks are cleared when the text changed. Right-to-left text reports `unverified-direction`.
+- The renderer draws supplied data. Optional `proofmarks/helpers` (findRange, offsetsFromSelection, getSourceText, correctionsFromDiff, applyCorrections) help the app author it; `applyCorrections` throws on conflicting corrections.
+- Treat `showProofmarks`, `appearance`, and the constrained `markStyle` fields as presentation only. Editorial motion uses Web Animations; set `animate: false` before capture only for exporters that copy computed styles.
+- Preserve native selectable, copyable, accessible text.

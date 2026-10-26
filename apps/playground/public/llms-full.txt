@@ -1,0 +1,88 @@
+# re:proofmarks — full agent context
+
+Proofmarks renders notation-aware proofreading marks over real, selectable browser text. The renderer consumes corrections; it does not discover mistakes, rewrite text, own editor state, or accept and reject changes. Optional proofmarks/helpers utilities help an application author correction data.
+
+The npm package ships this contract offline at node_modules/proofmarks/AGENT_GUIDE.md. Read it first inside a consumer project.
+
+## Install and entries
+
+npm install proofmarks
+
+React:
+- import type { Correction } from "proofmarks"
+- import { Proofmarks } from "proofmarks/react"
+- import { jis, gb, cns3927, ks, enUS } from "proofmarks/notations"
+- import "proofmarks/styles.css" (optional; default CSS variable values only)
+
+Vanilla:
+- import { createProofmarks } from "proofmarks"
+- call instance.update with the full options object when options change
+- call instance.destroy when the source element leaves the page
+
+Pack-specific entries are proofmarks/notations/jis, /gb, /cns3927, /ks, and /en-us.
+
+Helpers (optional authoring utilities): import { getSourceText, offsetsFromSelection, findRange, correctionsFromDiff, applyCorrections } from "proofmarks/helpers". getSourceText is also exported from "proofmarks".
+
+## Correction contract
+
+V0.1 has exactly eight operations:
+- delete: one non-empty text-range target
+- insert: one text-point target and non-empty content
+- replace: one non-empty text-range target and non-empty replacement
+- transpose: two ordered, non-overlapping text-range targets
+- move: one source text-range and a destination text-point outside it
+- increase-spacing: one boundary text-point
+- decrease-spacing: one non-empty text-range containing existing source whitespace only
+- cancel-correction: one correction reference to an earlier stable correction ID
+
+Every correction needs a stable, unique string ID. Numeric positions must be finite integers within source bounds. Correction JSON is notation-neutral. Never include proof symbols, drawing coordinates, SVG, CSS, notation IDs, or writing direction.
+
+## Text positions
+
+Offsets count UTF-16 code units over getSourceText(root): the root's descendant text nodes in document order, excluding the Proofmarks overlay. Before mounting it equals the root's textContent; after mounting, raw textContent also includes SVG annotation labels, so always use getSourceText. Offsets are not grapheme, code point, word, or byte indices. Compute offsets programmatically (findRange(text, phrase, nth), offsetsFromSelection(root, range)) and verify the selected substrings. Keep the source text stable while corrections are active.
+
+validateCorrection(value, textLength) checks one correction; validateCorrections(corrections, textLength) checks a collection, its relations, and optional bounds. The DOM renderer additionally checks that decrease-spacing selects whitespace only.
+
+## Notation and writing mode
+
+Choose jis (Japanese), gb (Simplified Chinese), cns3927 (Taiwan, Traditional Chinese; not a GB alias), ks (Korean), or enUS (American publishing) from explicit user or product context. If the convention is not specified, ask, or expose a picker so end users choose (pack displayName and locale can label it). Do not infer it only from UI locale and do not assume canonical support by visual symmetry. Inspect notation.support, notation.writingModes, and the published support matrix.
+
+Browser CSS owns writing mode; there is no writingMode prop. Unsupported combinations preserve readable source text, omit the fabricated mark, and report unsupported-writing-mode through onIssue. Right-to-left text is unverified for every pack: marks follow measured glyphs but are not mirrored, and onIssue reports unverified-direction once per instance.
+
+## Room and density
+
+Annotations are drawn inside the root's box. Start with padding: 44px 20px and line-height: 1.8 on the root, and keep ancestor overflow visible. Begin with 3–6 word-level corrections across 2–4 lines; this is a guideline, not a cap. Filter whole-paragraph rewrites before rendering. insufficient-room reports a label that still collides; its collisions field lists source-text, exits-paper, or annotation. Add room or show fewer corrections.
+
+## Lifecycle and boundaries
+
+In React, change notation, corrections, appearance, showProofmarks, and markStyle declaratively. Do not call createProofmarks for the same element. Inline option objects and callbacks do not repaint. In vanilla code, call update and destroy. Server rendering emits source content; the overlay attaches in the browser.
+
+Invalid data: React reports invalid-corrections through onIssue and does not throw. Vanilla createProofmarks and update throw; catch them. Observer-driven refreshes report through onIssue. If the source text changed since the last render, stale marks are cleared; unchanged text keeps the last valid frame. Never silently repair offsets; rebase or regenerate corrections when text changes.
+
+showProofmarks controls overlay visibility only. appearance and markStyle change presentation only. markStyle is limited to ink, labelInk, strokeScale, and opacity; never use it to invent geometry. These controls do not apply, accept, reject, or erase corrections. Preserve native selectable, copyable, accessible browser text; the overlay is aria-hidden and non-selectable, so copy returns source text only. Do not replace text with canvas or duplicated typesetting.
+
+The renderer does not own editor state, accept/reject, collaboration, persistence, or AI proofreading.
+
+## Helpers
+
+correctionsFromDiff(before, after, { granularity, locale, idPrefix }) is a small-text LCS diff. granularity is word (default), character, or code (identifiers, whitespace runs, single punctuation). idPrefix keeps IDs unique across lines. It emits decrease-spacing, increase-spacing, and transpose only when applyCorrections reproduces the target exactly; it does not decide editorial meaning. applyCorrections(text, corrections) applies corrections to plain text with original offsets and throws when two corrections conflict. increase-spacing inserts one ordinary space.
+
+## Motion and export
+
+Editorial motion plays once on the first non-empty editorial render; instance.replay() plays it again and respects reduced motion. Motion uses Web Animations, so a cloned or serialized SVG holds the final ink. Set animate: false (React animate={false}) before capture only for exporters that copy computed styles, or for many static instances.
+
+## Agent workflow
+
+1. Read the accepted source with getSourceText(root).
+2. Choose the notation from explicit context; otherwise ask or expose a picker. Consider jis, gb, cns3927, ks, and enUS.
+3. Compute and verify UTF-16 offsets with findRange, offsetsFromSelection, or correctionsFromDiff.
+4. Build data using satisfies readonly Correction[] and stable IDs.
+5. Reserve room (padding: 44px 20px, line-height: 1.8) and keep 3–6 small corrections across 2–4 lines.
+6. Use either the React or vanilla lifecycle.
+7. Handle onIssue (invalid-corrections, insufficient-room, unsupported-writing-mode, unverified-direction, style diagnostics) and never invent unsupported notation.
+8. Run type checking and a browser integration test that preserves source text and selection.
+
+Secondary references (repository):
+Canonical guide: https://github.com/cguodesign/proofmarks/blob/main/docs/agent-guide.md
+Public API: https://github.com/cguodesign/proofmarks/blob/main/docs/public-api-v1.md
+Support matrix: https://github.com/cguodesign/proofmarks/blob/main/docs/support-matrix.md

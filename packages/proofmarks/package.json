@@ -1,0 +1,97 @@
+{
+  "name": "proofmarks",
+  "version": "0.1.0",
+  "description": "Render notation-aware proofreading marks from plain correction data.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cguodesign/proofmarks.git"
+  },
+  "homepage": "https://github.com/cguodesign/proofmarks#readme",
+  "bugs": {
+    "url": "https://github.com/cguodesign/proofmarks/issues"
+  },
+  "keywords": [
+    "proofreading",
+    "proofmarks",
+    "typography",
+    "editorial",
+    "react"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": [
+    "./src/styles.css"
+  ],
+  "files": [
+    "dist",
+    "src/styles.css",
+    "README.md",
+    "AGENT_GUIDE.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./notations": {
+      "types": "./dist/notations.d.ts",
+      "import": "./dist/notations.js"
+    },
+    "./notations/jis": {
+      "types": "./dist/notations/jis.d.ts",
+      "import": "./dist/notations/jis.js"
+    },
+    "./notations/gb": {
+      "types": "./dist/notations/gb.d.ts",
+      "import": "./dist/notations/gb.js"
+    },
+    "./notations/cns3927": {
+      "types": "./dist/notations/cns3927.d.ts",
+      "import": "./dist/notations/cns3927.js"
+    },
+    "./notations/ks": {
+      "types": "./dist/notations/ks.d.ts",
+      "import": "./dist/notations/ks.js"
+    },
+    "./notations/en-us": {
+      "types": "./dist/notations/en-us.d.ts",
+      "import": "./dist/notations/en-us.js"
+    },
+    "./styles.css": "./src/styles.css",
+    "./package.json": "./package.json",
+    "./helpers": {
+      "types": "./dist/helpers.d.ts",
+      "import": "./dist/helpers.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run src"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@proofmarks/core": "workspace:*",
+    "@proofmarks/dom": "workspace:*",
+    "@proofmarks/notations": "workspace:*",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tsup": "^8.5.1"
+  }
+}

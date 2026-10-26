@@ -1,0 +1,22 @@
+{
+  "name": "@proofmarks/notations",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./jis": "./src/jis.ts",
+    "./gb": "./src/gb.ts",
+    "./cns3927": "./src/cns3927.ts",
+    "./ks": "./src/ks.ts",
+    "./en-us": "./src/en-us.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@proofmarks/core": "workspace:*",
+    "@proofmarks/dom": "workspace:*"
+  }
+}

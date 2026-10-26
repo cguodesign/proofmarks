@@ -1,0 +1,15 @@
+.DS_Store
+
+node_modules/
+.pnpm-store/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local sanitized repository bundles; never commit these to the private repo.
+/public-release/
+
+# Static GitHub Pages build
+dist-pages/

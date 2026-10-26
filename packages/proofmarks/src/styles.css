@@ -1,0 +1,9 @@
+[data-proofmarks-root] {
+  --proofmarks-color: oklch(52% 0.22 28);
+  --proofmarks-stroke-width: 1.75px;
+  --proofmarks-label-font: ui-sans-serif, sans-serif;
+  --proofmarks-halo: transparent;
+  --proofmarks-editorial-color: oklch(50% 0.19 31);
+  --proofmarks-editorial-second-stroke: 1.05px;
+  --proofmarks-editorial-font: "Bradley Hand", "Segoe Print", "Hiragino Maru Gothic ProN", cursive;
+}

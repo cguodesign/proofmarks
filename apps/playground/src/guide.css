@@ -1,0 +1,127 @@
+/* Shared public documentation language: open layouts, live text, quiet controls. */
+.guide-page .site-header, .guide-page .site-footer { border: 0; }
+.guide-page .site-navigation a { font-size: 0.875rem; }
+.guide-layout { display: grid; grid-template-columns: 11rem minmax(0, 48rem); gap: clamp(2rem, 5vw, 5rem); padding-block: 3rem 1rem; }
+.guide-contents { position: sticky; top: 2rem; align-self: start; display: grid; gap: 0.15rem; font-size: 0.875rem; max-height: calc(100dvh - 4rem); overflow: auto; }
+.guide-contents > span { margin-bottom: 0.75rem; font-weight: 600; }
+.guide-contents a { padding: 0.65rem 0; color: var(--muted); text-decoration: none; }
+.guide-contents a:hover, .guide-contents a[aria-current] { color: var(--ink); }
+.guide-contents a[aria-current] { font-weight: 600; }
+.guide-layout main { min-width: 0; }
+.guide-intro { margin-bottom: 3rem; }
+.guide-page h1 { margin-bottom: 1rem; font-size: clamp(2.5rem, 4vw, 3.25rem); font-weight: 400; letter-spacing: -0.035em; }
+.guide-page h2 { margin-bottom: 1rem; font-size: 1.75rem; font-weight: 400; letter-spacing: -0.02em; }
+.guide-page h3 { margin-bottom: 0.75rem; font-family: inherit; font-size: 1rem; font-weight: 600; }
+.guide-page p, .guide-page li { font-size: 1rem; line-height: 1.7; }
+.guide-intro > p { max-width: 62ch; color: var(--muted); font-size: 1.0625rem; }
+.guide-section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+.guide-page .guide-note { color: var(--muted); font-size: 0.875rem; line-height: 1.65; }
+.guide-page p code { font-size: 0.875em; overflow-wrap: anywhere; }
+.guide-code { margin: 1.25rem 0; min-width: 0; border: 0; border-radius: 0.5rem; background: #f7f7f7; }
+.guide-code figcaption { display: flex; gap: 1rem; justify-content: space-between; align-items: center; padding: 0.5rem 1.25rem 0; color: var(--muted); font-size: 0.8125rem; }
+.guide-copy { display: flex; align-items: center; gap: 0.75rem; }
+.guide-code pre { margin: 0; padding: 0.75rem 0 1.5rem; max-width: 100%; overflow: auto; color: var(--ink); background: transparent; border: 0; font-size: 0.8125rem; line-height: 1.65; tab-size: 2; }
+/* Highlighted lines: tinted band plus a left rule; other lines recede but stay readable (≥ 4.5:1). */
+.guide-code { --code-highlight: oklch(95% 0.028 31); --code-token: oklch(90% 0.06 31); }
+.guide-code code { display: block; width: max-content; min-width: 100%; font: inherit; }
+.guide-code-line { display: inline-block; box-sizing: border-box; min-width: 100%; min-height: 1.65em; padding: 0 1.25rem 0 calc(1.25rem - 3px); vertical-align: top; color: inherit; background: transparent; border-left: 3px solid transparent; }
+.guide-code[data-highlighted-lines] span.guide-code-line { color: var(--muted); }
+.guide-code mark.guide-code-line { color: var(--ink); background: var(--code-highlight); border-left-color: var(--proof-red); }
+.guide-code mark.guide-code-token { color: inherit; background: var(--code-token); border-radius: 0.2em; text-decoration: underline 1px; text-underline-offset: 0.25em; text-decoration-color: var(--proof-red); }
+@media (forced-colors: active) {
+  .guide-code mark.guide-code-line { border-left-color: Highlight; }
+  .guide-code mark.guide-code-token { text-decoration-color: currentColor; }
+}
+.guide-page button { min-height: 2.75rem; padding: 0.5rem 0.75rem; color: var(--ink); background: #f3f3f3; border: 0; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; }
+.guide-page button:hover { background: #e9e9e9; }
+.guide-code button { background: transparent; }
+.guide-page :is(button, select, input, pre, [contenteditable]):focus-visible { outline: 2px solid var(--proof-red); outline-offset: 3px; box-shadow: none; }
+.guide-field { display: grid; gap: 0.5rem; min-width: 0; align-content: start; }
+.guide-field > label { color: var(--muted); font-size: 0.875rem; }
+.guide-field :is(select, input[type=text]) { width: 100%; min-width: 0; min-height: 2.75rem; padding: 0.65rem 0.75rem; border: 0; border-radius: 0.375rem; color: var(--ink); background: #f5f5f5; font: inherit; font-size: 0.875rem; }
+.guide-field input[type=color] { width: 4rem; height: 2.75rem; padding: 0.25rem; border: 0; background: #f5f5f5; }
+.guide-range { display: flex; gap: 0.5rem; align-items: center; font-size: 0.875rem; }
+.guide-range input { width: 8rem; min-width: 0; min-height: 2.75rem; accent-color: var(--proof-red); }
+.guide-range output { min-width: 4ch; color: var(--muted); font-variant-numeric: tabular-nums; }
+.guide-language { max-width: 20rem; margin-block: 1.5rem; }
+.guide-density { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-block: 1.5rem; }
+.guide-density figure { margin: 0; min-width: 0; overflow: hidden; }
+.guide-density figcaption { margin-bottom: 0.5rem; color: var(--muted); font-size: 0.8125rem; }
+.guide-page .guide-density-proof { margin: 0; font-family: "Iowan Old Style", "Palatino Linotype", serif; font-size: 1.125rem; background: var(--paper); }
+.proof-text { --proofmarks-halo: var(--paper); padding: 44px 20px; font-family: "Iowan Old Style", "Palatino Linotype", serif; font-size: 1.5rem; line-height: 1.8; color: var(--ink); background: var(--paper); overflow-wrap: anywhere; }
+.proof-text[lang=ja] { font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; }
+.proof-text[lang=zh-Hans] { font-family: "Songti SC", "Noto Serif CJK SC", serif; }
+.proof-text[lang=zh-Hant-TW] { font-family: "Songti TC", "Noto Serif CJK TC", serif; }
+.proof-text[lang=ko] { font-family: "AppleMyungjo", "Noto Serif CJK KR", serif; }
+.proof-text [data-proofmarks-halo-for] { stroke: transparent; }
+.guide-example-result { margin: 0; }
+.guide-example-result figcaption { color: var(--muted); font-size: 0.8125rem; }
+.guide-try { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: end; max-width: 32rem; margin-top: 1.5rem; }
+.guide-page .guide-explanation { margin-top: 1rem; }
+.guide-data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
+.guide-data-table th, .guide-data-table td { padding: 0.85rem 0.75rem 0.85rem 0; border: 0; border-bottom: 1px solid var(--soft-rule); vertical-align: top; line-height: 1.55; }
+.guide-data-table th { font-weight: 500; }
+.guide-data-table code { font-size: 0.8rem; }
+/* Short status labels; scroll inside .guide-overflow rather than breaking CJK words mid-term. */
+.guide-coverage-table :is(th, td) { white-space: nowrap; }
+.guide-reference { margin-top: 2.5rem; }
+.guide-reference dl { margin: 0; }
+.guide-reference dt { color: var(--muted); font-size: 0.8125rem; margin-top: 1rem; }
+.guide-reference dd { margin: 0.25rem 0 0; font-size: 0.9375rem; line-height: 1.65; }
+.guide-reference-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1rem; font-size: 0.875rem; }
+.guide-credits { display: grid; gap: 1.5rem; }
+.guide-credits figure { margin: 0; }
+.guide-credits figcaption { font-size: 0.875rem; line-height: 1.65; }
+.guide-overflow { max-width: 100%; overflow-x: auto; }
+/* Same spacing as a code sample, so a table never sits flush against the next block. */
+.guide-overflow:not(:last-child) { margin-bottom: 1.25rem; }
+.catalog-page > main { padding-block: 2rem; }
+.catalog-page .guide-intro { margin-bottom: 1.5rem; }
+.catalog-controls { display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; align-items: end; margin: 1.5rem 0; }
+.catalog-controls > .guide-field { flex: 0 1 auto; }
+.catalog-language { width: min(100%, 20rem); margin-bottom: 1.5rem; }
+.catalog-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; margin-top: 2rem; }
+.catalog-table col:nth-child(1) { width: 37%; } .catalog-table col:nth-child(2) { width: 14%; } .catalog-table col:nth-child(3) { width: 21%; } .catalog-table col:nth-child(4) { width: 28%; }
+.catalog-table th { font-size: 0.8125rem; font-weight: 500; color: var(--muted); padding: 1rem 0.75rem; border: 0; border-bottom: 1px solid var(--soft-rule); }
+.catalog-table td { padding: 1.75rem 0.75rem; border: 0; border-bottom: 1px solid var(--soft-rule); vertical-align: middle; }
+.catalog-table th:first-child, .catalog-table td:first-child { padding-left: 0; }
+.catalog-table th:last-child, .catalog-table td:last-child { padding-right: 0; }
+.catalog-table .proof-text { padding: 3rem 1.25rem; font-size: 1.125rem; line-height: 2.5; }
+.catalog-table .proof-text--vertical { writing-mode: vertical-rl; max-height: 22rem; min-height: 15rem; margin: auto; padding: 1.5rem 3rem; }
+.catalog-table td p { font-size: 0.875rem; margin: 0.5rem 0; }
+.catalog-table .catalog-name { font-weight: 500; }
+.catalog-table .catalog-status { display: block; margin-top: 0.5rem; font-size: 0.75rem; color: var(--muted); }
+.catalog-table .guide-code { margin: 0; }
+.catalog-table .guide-code pre { padding-bottom: 1rem; font-size: 0.75rem; }
+/* The usage column is narrow: wrap long lines in place instead of scrolling each cell. */
+.catalog-table .guide-code code { width: auto; }
+.catalog-table .guide-code-line { white-space: pre-wrap; overflow-wrap: anywhere; }
+.catalog-source { font-size: 0.875rem; color: var(--muted); margin-top: 0.75rem; }
+.catalog-reset { margin-left: auto; }
+.catalog-table .catalog-empty { font-size: 0.875rem; color: var(--muted); padding: 2rem; }
+@media (max-width: 59.99rem) {
+  .guide-layout { grid-template-columns: minmax(0, 48rem); justify-content: center; gap: 2rem; padding-top: 2rem; }
+  .guide-contents { position: static; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; max-height: none; }
+  .guide-contents > span { flex-basis: 100%; margin: 0; }
+  .catalog-table, .catalog-table tbody { display: block; }
+  .catalog-table colgroup { display: none; }
+  .catalog-table thead { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+  .catalog-table tr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-block: 1.5rem; border-bottom: 1px solid var(--soft-rule); }
+  .catalog-table td { display: block; padding: 0; border: 0; min-width: 0; }
+  .catalog-table td:nth-child(1) { grid-column: 1 / -1; }
+  .catalog-table td:nth-child(2) { grid-column: 1; }
+  .catalog-table td:nth-child(3) { grid-column: 1; }
+  .catalog-table td:nth-child(4) { grid-column: 2; grid-row: 2 / 4; }
+  .catalog-table td::before { content: attr(data-label); display: block; margin-bottom: 0.6rem; font-size: 0.75rem; color: var(--muted); }
+  .catalog-reset { margin-left: 0; }
+}
+@media (max-width: 35rem) {
+  .guide-density { grid-template-columns: minmax(0, 1fr); }
+  .guide-try { grid-template-columns: minmax(0, 1fr); }
+  .guide-try button { justify-self: start; }
+  .proof-text { padding-inline: 1.25rem; font-size: 1.25rem; }
+  .guide-code pre { font-size: 0.75rem; }
+  .catalog-table tr { grid-template-columns: minmax(0, 1fr); }
+  .catalog-table td:nth-child(n) { grid-column: 1; grid-row: auto; }
+  .catalog-table .proof-text { padding-inline: 1rem; }
+}
