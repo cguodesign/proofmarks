@@ -1,0 +1,37 @@
+diff --git a/src/cart.js b/src/cart.js
+index 1a2b3c4..5d6e7f8 100644
+--- a/src/cart.js
++++ b/src/cart.js
+@@ -1,24 +1,24 @@
+ import { fetchUser } from "./api.js";
+ 
+-// 获取用户信息并计算总价
++// 获取用户资料并计算总价
+ export async function checkout(userId, items) {
+-  const usr = fetchUser(userId);
++  const user = await fetchUser(userId);
+-  if (items.lenght == 0) return null;
++  if (items.length === 0) return null;
+-  console.log("checkout", usr);
+   let total = 0;
+   for (const item of items) {
+-    total += item.price * item.qty;
++    total += item.qty * item.price;
+   }
+-  const discount = applyCoupon(total, user.coupon);
++  const discount = applyCoupon(user.coupon, total);
+-  return {  total: total - discount, currency: "USD" };
++  return { total: total - discount, currency: "USD" };
+ }
+ 
+ export function formatPrice(cents) {
+-  return "$" + (cents / 100).toFixed(2);
++  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
+ }
+ 
+ export const greeting = (name) =>
+-  `Hello ${name} 👋, your cart is ready`;
++  `Hello ${name} 👋, your cart is ready!`;
+ 
+-const MAX_ITEMS = 50;
++const MAX_ITEMS=50;
