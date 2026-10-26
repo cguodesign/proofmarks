@@ -1,4 +1,4 @@
-# re:proofmarks
+# proofmarks
 
 > Proofmarks renders culturally specific proofreading notation over real, selectable browser text from plain correction data.
 

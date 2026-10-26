@@ -15,7 +15,7 @@ export const publicNavigation: ReadonlyArray<{
 export function publicHeaderMarkup(active: PublicRoute): string {
   return `
     <header class="site-header">
-      <a class="site-wordmark" href="${siteHref("/")}" aria-label="re:proofmarks overview"${active === "overview" ? ' aria-current="page"' : ""}>re:proofmarks</a>
+      <a class="site-wordmark" href="${siteHref("/")}" aria-label="proofmarks overview"${active === "overview" ? ' aria-current="page"' : ""}>proofmarks</a>
       <nav class="site-navigation" aria-label="Primary navigation">
         ${publicNavigation
           .map(
@@ -31,7 +31,7 @@ export function publicFooterMarkup(): string {
   return `
     <footer class="site-footer">
       <div>
-        <a class="site-wordmark" href="${siteHref("/")}">re:proofmarks</a>
+        <a class="site-wordmark" href="${siteHref("/")}">proofmarks</a>
         <p>Reference-based proofreading notation<br>for browser typography. MIT License.</p>
       </div>
       <nav aria-label="Footer navigation">

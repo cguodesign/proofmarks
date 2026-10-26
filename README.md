@@ -6,8 +6,7 @@ Version 0.1.0 is a release candidate and is not yet available from npm. To
 evaluate it now, clone this repository and run `pnpm install --frozen-lockfile`,
 then `pnpm build` or `pnpm dev`.
 
-`re:proofmarks` is the public product wordmark. The published npm package and
-all JavaScript import paths remain `proofmarks`.
+`proofmarks` is the public wordmark, npm package name, and JavaScript import root.
 
 ```bash
 npm install proofmarks

@@ -89,7 +89,7 @@ function Demo() {
   }, [docsOpen]);
 
   useEffect(() => {
-    document.title = finished ? `${copyText.story} — re:proofmarks` : `${scene.title} · ${copyText.story} — re:proofmarks`;
+    document.title = finished ? `${copyText.story} — proofmarks` : `${scene.title} · ${copyText.story} — proofmarks`;
     document.documentElement.lang = subtitleLanguage;
     const skipLink = document.querySelector<HTMLAnchorElement>(".skip-link");
     if (skipLink) skipLink.textContent = copyText.skip;
@@ -152,7 +152,7 @@ function Demo() {
   return (
     <div className="story-demo">
       <header className="story-header">
-        <a className="story-brand" href={siteHref("/")} aria-label={copyText.home}>re:proofmarks</a>
+        <a className="story-brand" href={siteHref("/")} aria-label={copyText.home}>proofmarks</a>
         <span>{copyText.story}</span>
       </header>
       <main id="main-content" tabIndex={-1}>

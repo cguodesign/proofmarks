@@ -12,7 +12,7 @@ const languages = [
 test("get started has two complete, copyable, unfolded examples", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/get-started");
-  await expect(page).toHaveTitle("Get started — re:proofmarks");
+  await expect(page).toHaveTitle("Get started — proofmarks");
   await expect(page.locator("main details, main summary, main [role=tablist]")).toHaveCount(0);
   await expect(page.locator(".guide-basic-example")).toHaveCount(2);
   await expect(page.locator(".guide-example-result [data-correction-id]")).toHaveCount(2);

@@ -948,7 +948,7 @@ function renderWorkbench(): void {
     <header class="masthead">
       <div>
         <p class="eyebrow">English · US notation pack · Task 005</p>
-        <h1>re:proofmarks</h1>
+        <h1>proofmarks</h1>
       </div>
       <div class="masthead-copy">
         <p class="premise">Encode the editorial intent once. Let each notation decide how it should be typeset.</p>
@@ -1597,7 +1597,7 @@ function mixedProofMarkup(): string {
 }
 
 function renderGallery(): void {
-  document.title = "Marks — re:proofmarks";
+  document.title = "Marks — proofmarks";
   app.innerHTML = `
     <div class="public-site marks-page" data-specimen-appearance="technical">
       ${publicHeaderMarkup("marks")}

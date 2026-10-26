@@ -43,7 +43,7 @@ for (const locale of locales) {
           .toEqual([t.common.footerDocs, t.common.footerReferences]);
         expect(await page.locator(".skip-link").textContent()).toBe(t.common.skipLink);
       }
-      if (route.path !== "/") await expect(page).toHaveTitle(`${route.heading(t)} — re:proofmarks`);
+      if (route.path !== "/") await expect(page).toHaveTitle(`${route.heading(t)} — proofmarks`);
       else await expect(page).toHaveTitle(t.meta.homeTitle);
       await expect(page.locator("[data-proofmarks-overlay]").first()).toBeAttached();
     }

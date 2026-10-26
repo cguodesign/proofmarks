@@ -23,7 +23,7 @@ export function SiteHeader({ active }: { active?: PublicRoute }) {
   const { t, href, localized } = useSiteText();
   return (
     <header className="site-header">
-      <a className="site-wordmark" href={href("/")} aria-label={t.common.wordmarkLabel} aria-current={active === "overview" ? "page" : undefined}>re:proofmarks</a>
+      <a className="site-wordmark" href={href("/")} aria-label={t.common.wordmarkLabel} aria-current={active === "overview" ? "page" : undefined}>proofmarks</a>
       <nav className="site-navigation" aria-label={t.common.primaryNavigation}>
         {publicNavigation.map(({ id, href: path }) => (
           <a key={id} href={href(path)} aria-current={id === active ? "page" : undefined}>
@@ -42,7 +42,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div>
-        <a className="site-wordmark" href={href("/")}>re:proofmarks</a>
+        <a className="site-wordmark" href={href("/")}>proofmarks</a>
         <p>{first}{second ? <><br />{second}</> : null}</p>
       </div>
       <nav aria-label={t.common.footerNavigation}>

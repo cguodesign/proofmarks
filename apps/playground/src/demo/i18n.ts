@@ -15,7 +15,7 @@ type UiCopy = {
 
 export const uiCopy: Record<SubtitleLanguage, UiCopy> = {
   "zh-Hans": {
-    story: "今天付印", endingChapter: "终 · 今天付印", endingLine: "五种校对传统，同一份认真。", home: "re:proofmarks 首页", skip: "跳至校样",
+    story: "今天付印", endingChapter: "终 · 今天付印", endingLine: "五种校对传统，同一份认真。", home: "proofmarks 首页", skip: "跳至校样",
     proof: "原始校样", mark: "在虚线处落笔", retain: "保留原文", switchSimplified: "切换至简体卷首语", switchTraditional: "切换至繁体邀请函",
     scriptSwitch: "简 / 繁", widen: "展开稿纸", narrow: "收窄稿纸", widthHint: "改变稿纸宽度，观察红笔随文字换行",
     tryIt: "自己拿起红笔", restart: "重新读一遍", viewEvidence: "查看", paging: "故事翻页", previous: "上一页",
@@ -26,7 +26,7 @@ export const uiCopy: Record<SubtitleLanguage, UiCopy> = {
     fullDocs: "完整文档", references: "记号依据",
   },
   "zh-Hant": {
-    story: "今天付印", endingChapter: "終 · 今天付印", endingLine: "五種校對傳統，同一份認真。", home: "re:proofmarks 首頁", skip: "跳至校樣",
+    story: "今天付印", endingChapter: "終 · 今天付印", endingLine: "五種校對傳統，同一份認真。", home: "proofmarks 首頁", skip: "跳至校樣",
     proof: "原始校樣", mark: "在虛線處落筆", retain: "保留原文", switchSimplified: "切換至簡體卷首語", switchTraditional: "切換至繁體邀請函",
     scriptSwitch: "簡 / 繁", widen: "展開稿紙", narrow: "收窄稿紙", widthHint: "改變稿紙寬度，觀察紅筆如何隨文字換行",
     tryIt: "親自拿起紅筆", restart: "重新讀一遍", viewEvidence: "查看", paging: "故事翻頁", previous: "上一頁",
@@ -37,7 +37,7 @@ export const uiCopy: Record<SubtitleLanguage, UiCopy> = {
     fullDocs: "完整文件", references: "記號依據",
   },
   ja: {
-    story: "本日、印刷へ", endingChapter: "終幕 · 本日、印刷へ", endingLine: "五つの校正の伝統に、同じだけの心配りを。", home: "re:proofmarks ホーム", skip: "校正刷りへ移動",
+    story: "本日、印刷へ", endingChapter: "終幕 · 本日、印刷へ", endingLine: "五つの校正の伝統に、同じだけの心配りを。", home: "proofmarks ホーム", skip: "校正刷りへ移動",
     proof: "元の校正刷り", mark: "点線に沿って赤字を入れる", retain: "原文を残す", switchSimplified: "簡体字の巻頭言に切り替え", switchTraditional: "繁体字の招待状に切り替え",
     scriptSwitch: "簡 / 繁", widen: "紙面を広げる", narrow: "紙面を狭める", widthHint: "紙面の幅を変え、改行に合わせて赤字が移動する様子を見る",
     tryIt: "自分で赤字を入れる", restart: "もう一度読む", viewEvidence: "記録を見る：", paging: "ページ移動", previous: "前のページ",
@@ -48,7 +48,7 @@ export const uiCopy: Record<SubtitleLanguage, UiCopy> = {
     fullDocs: "ドキュメント", references: "記号の出典",
   },
   ko: {
-    story: "오늘 인쇄", endingChapter: "끝 · 오늘 인쇄", endingLine: "다섯 교정 전통에 같은 정성을 담았습니다.", home: "re:proofmarks 홈", skip: "교정지로 이동",
+    story: "오늘 인쇄", endingChapter: "끝 · 오늘 인쇄", endingLine: "다섯 교정 전통에 같은 정성을 담았습니다.", home: "proofmarks 홈", skip: "교정지로 이동",
     proof: "원본 교정지", mark: "점선을 따라 교정 표시하기", retain: "원문 유지", switchSimplified: "간체 머리글로 전환", switchTraditional: "번체 초대장으로 전환",
     scriptSwitch: "간 / 번", widen: "지면 넓히기", narrow: "지면 좁히기", widthHint: "지면 너비를 바꾸고 줄바꿈에 따라 교정 표시가 이동하는 모습을 보세요",
     tryIt: "직접 교정하기", restart: "다시 읽기", viewEvidence: "기록 보기: ", paging: "페이지 이동", previous: "이전 페이지",
@@ -59,7 +59,7 @@ export const uiCopy: Record<SubtitleLanguage, UiCopy> = {
     fullDocs: "전체 문서", references: "교정 기호 근거",
   },
   en: {
-    story: "Going to press today", endingChapter: "Final act · Going to press", endingLine: "Five traditions. The same care for each.", home: "re:proofmarks home", skip: "Skip to the proof",
+    story: "Going to press today", endingChapter: "Final act · Going to press", endingLine: "Five traditions. The same care for each.", home: "proofmarks home", skip: "Skip to the proof",
     proof: "original proof", mark: "Mark along the dotted line", retain: "Keep the original", switchSimplified: "Switch to the Simplified Chinese editorial", switchTraditional: "Switch to the Traditional Chinese invitation",
     scriptSwitch: "S / T", widen: "Widen the page", narrow: "Narrow the page", widthHint: "Change the page width to see the marks follow the text as it wraps",
     tryIt: "Pick up the red pencil", restart: "Read it again", viewEvidence: "View ", paging: "Story pages", previous: "Previous page",

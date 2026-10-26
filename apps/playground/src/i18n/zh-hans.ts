@@ -4,7 +4,7 @@ import type { SiteDictionary } from "./en";
 export const zhHans: SiteDictionary = {
   common: {
     skipLink: "跳至正文",
-    wordmarkLabel: "re:proofmarks 首页",
+    wordmarkLabel: "proofmarks 首页",
     primaryNavigation: "主导航",
     footerNavigation: "页脚导航",
     nav: { demo: "演示", getStarted: "快速上手", marks: "校对记号", docs: "文档" },
@@ -24,7 +24,7 @@ export const zhHans: SiteDictionary = {
     productSummary: "在真实、可选中的浏览器正文上标注校对记号。",
   },
   meta: {
-    homeTitle: "re:proofmarks — 面向浏览器的校对记号",
+    homeTitle: "proofmarks — 面向浏览器的校对记号",
     homeDescription: "在浏览器实时排版的文字周围绘制传统校对记号。",
     getStartedDescription: "安装 proofmarks，选择校对记号，渲染第一条替换与插入校改。",
     docsDescription: "proofmarks 的校改数据、记号覆盖范围、React 与原生 JS 集成、辅助函数、留白、错误处理、自定义与依据。",

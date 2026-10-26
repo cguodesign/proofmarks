@@ -4,7 +4,7 @@ import type { SiteDictionary } from "./en";
 export const ko: SiteDictionary = {
   common: {
     skipLink: "본문으로 건너뛰기",
-    wordmarkLabel: "re:proofmarks 홈",
+    wordmarkLabel: "proofmarks 홈",
     primaryNavigation: "주 탐색",
     footerNavigation: "바닥글 탐색",
     nav: { demo: "데모", getStarted: "시작하기", marks: "교정 기호", docs: "문서" },
@@ -24,7 +24,7 @@ export const ko: SiteDictionary = {
     productSummary: "선택할 수 있는 실제 브라우저 본문 위에 교정 기호를 표시합니다.",
   },
   meta: {
-    homeTitle: "re:proofmarks — 브라우저를 위한 교정 기호",
+    homeTitle: "proofmarks — 브라우저를 위한 교정 기호",
     homeDescription: "브라우저가 실시간으로 조판한 글자 주위에 전통적인 교정 기호를 그립니다.",
     getStartedDescription: "proofmarks를 설치하고 교정 기호를 골라 첫 교체·삽입 교정을 표시해 보세요.",
     docsDescription: "proofmarks의 교정 데이터, 교정 기호 지원 범위, React와 바닐라 JS 연동, 헬퍼, 여백, 오류 처리, 사용자 지정, 근거 자료.",
