@@ -63,7 +63,7 @@ export function GuideLayout({ title, description, intro, active, sections, child
 }) {
   const { t } = useSiteText();
   const [current, setCurrent] = useState(sections[0]?.id);
-  useDocumentMeta(`${title} — re:proofmarks`, description);
+  useDocumentMeta(`${title} — proofmarks`, description);
   useEffect(() => {
     const anchor = window.location.hash.slice(1);
     if (anchor) document.getElementById(anchor)?.scrollIntoView();

@@ -78,6 +78,27 @@ importers:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
 
+  demos/diff-ink:
+    dependencies:
+      proofmarks:
+        specifier: workspace:*
+        version: link:../../packages/proofmarks
+
+  demos/zhenhua:
+    dependencies:
+      html-to-image:
+        specifier: 1.11.13
+        version: 1.11.13
+      proofmarks:
+        specifier: workspace:*
+        version: link:../../packages/proofmarks
+      react:
+        specifier: ^19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: ^19.2.8
+        version: 19.2.8(react@19.2.8)
+
   packages/core: {}
 
   packages/dom:

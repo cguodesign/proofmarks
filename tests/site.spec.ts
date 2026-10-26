@@ -41,8 +41,8 @@ test.describe("Task 009 public website", () => {
     page,
   }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/re:proofmarks — Proofreading notation/);
-    await expect(page.getByRole("link", { name: "re:proofmarks overview" })).toBeVisible();
+    await expect(page).toHaveTitle(/proofmarks — Proofreading notation/);
+    await expect(page.getByRole("link", { name: "proofmarks overview" })).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "Proofreading notation for the browser." }),
     ).toBeVisible();
@@ -265,7 +265,7 @@ test.describe("Task 009 public website", () => {
     await expect(page.getByRole("link", { name: /Connect your editor/ })).toHaveAttribute("href", "/docs#editing");
     await page.goto("/playground#insert");
     await expect(page).toHaveURL(/\/get-started#insert$/);
-    await expect(page).toHaveTitle("Get started — re:proofmarks");
+    await expect(page).toHaveTitle("Get started — proofmarks");
     await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Get started", exact: true })).toHaveAttribute("aria-current", "page");
   });
 });

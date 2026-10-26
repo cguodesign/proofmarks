@@ -1,0 +1,14 @@
+{
+  "name": "@proofmarks/demo-diff-ink",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5182",
+    "build": "vite build",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "proofmarks": "workspace:*"
+  }
+}

@@ -2,13 +2,11 @@
 
 Render traditional proofreading notation over normal browser content from plain, notation-neutral correction data.
 
-Version 0.1.0 is a release candidate. The npm entry currently holds a staging
-placeholder; the usable package is awaiting approval. To evaluate the candidate
-now, clone this repository and run `pnpm install --frozen-lockfile`, then
-`pnpm build` or `pnpm dev`.
+Version 0.1.0 is a release candidate and is not yet available from npm. To
+evaluate it now, clone this repository and run `pnpm install --frozen-lockfile`,
+then `pnpm build` or `pnpm dev`.
 
-`re:proofmarks` is the public product wordmark. The published npm package and
-all JavaScript import paths remain `proofmarks`.
+`proofmarks` is the public wordmark, npm package name, and JavaScript import root.
 
 ```bash
 npm install proofmarks
@@ -251,9 +249,12 @@ Open the public site:
 
 The former `/references` URL redirects to `/docs#references`.
 
-Standalone demo apps stay in the development repository and are excluded
-from this public source snapshot and the npm package; see the
-[release policy](docs/public-release-policy.md).
+Standalone demo apps live in [`demos/`](demos) and use only the public package
+entry points: `pnpm demo:zhenhua` (React, Chinese UI and samples) and
+`pnpm demo:diff-ink` (vanilla, Chinese UI, English sample code).
+These apps are included in the public repository as runnable examples. They are
+private workspace packages and are excluded from the published npm package;
+see the [release policy](docs/public-release-policy.md).
 
 Engineering validation remains available without taking over the public story:
 

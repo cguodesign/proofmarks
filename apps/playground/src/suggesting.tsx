@@ -226,7 +226,7 @@ function SuggestingWorkbench() {
   const ownershipJson = JSON.stringify(suggestionOwnership(suggesting), null, 2);
 
   useEffect(() => {
-    document.title = "Playground — re:proofmarks";
+    document.title = "Playground — proofmarks";
   }, []);
 
   useEffect(() => () => {

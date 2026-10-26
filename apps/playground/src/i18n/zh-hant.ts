@@ -4,7 +4,7 @@ import type { SiteDictionary } from "./en";
 export const zhHant: SiteDictionary = {
   common: {
     skipLink: "跳至正文",
-    wordmarkLabel: "re:proofmarks 首頁",
+    wordmarkLabel: "proofmarks 首頁",
     primaryNavigation: "主要導覽",
     footerNavigation: "頁尾導覽",
     nav: { demo: "示範", getStarted: "快速上手", marks: "校對記號", docs: "文件" },
@@ -24,7 +24,7 @@ export const zhHant: SiteDictionary = {
     productSummary: "在真實、可選取的瀏覽器正文上標示校對記號。",
   },
   meta: {
-    homeTitle: "re:proofmarks — 為瀏覽器打造的校對記號",
+    homeTitle: "proofmarks — 為瀏覽器打造的校對記號",
     homeDescription: "在瀏覽器即時排版的文字周圍繪製傳統校對記號。",
     getStartedDescription: "安裝 proofmarks，選擇校對記號，顯示第一筆替換與插入校改。",
     docsDescription: "proofmarks 的校改資料、記號支援範圍、React 與原生 JS 整合、輔助函式、留白、錯誤處理、自訂與依據。",

@@ -1,4 +1,4 @@
-# re:proofmarks — full agent context
+# proofmarks — full agent context
 
 Proofmarks renders notation-aware proofreading marks over real, selectable browser text. The renderer consumes corrections; it does not discover mistakes, rewrite text, own editor state, or accept and reject changes. Optional proofmarks/helpers utilities help an application author correction data.
 

@@ -19,7 +19,7 @@ function MarksPage() {
   const [opacity, setOpacity] = useState(1);
   const pack = languages[language];
   const style: ProofmarksMarkStyle = { ink, labelInk, strokeScale: weight, opacity };
-  useDocumentMeta(`${copy.title} — re:proofmarks`, t.meta.marksDescription);
+  useDocumentMeta(`${copy.title} — proofmarks`, t.meta.marksDescription);
   const reset = () => { setAppearance("editorial"); setMode("horizontal-tb"); setInk("#b3261e"); setLabelInk("#b3261e"); setWeight(0.75); setOpacity(1); };
   return <div className="public-site guide-page catalog-page">
     <SiteHeader active="marks" />

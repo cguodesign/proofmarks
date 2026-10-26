@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>diff-ink · 代码批改模式</title>
+  </head>
+  <body>
+    <main>
+      <header class="top">
+        <h1>diff-ink</h1>
+        <p>一个普通的 side-by-side diff 查看器。点「✍️ 批改模式」，旧代码那一栏会变成老师的红笔批改；改得太多的行，老师懒得批。</p>
+      </header>
+      <section class="bar">
+        <button id="sample">示例：cart.js</button>
+        <label>符号 <select id="notation"><option value="enUS">en-US</option><option value="jis">JIS</option><option value="gb">GB</option></select></label>
+        <label>每行最多批 <input id="max-edits" type="range" min="1" max="6" value="3" /> <output id="max-edits-out">3</output> 处</label>
+        <label><input id="editorial" type="checkbox" checked /> 手写味</label>
+      </section>
+      <details class="paste">
+        <summary>粘贴自己的 diff（git diff 输出）</summary>
+        <textarea id="input" rows="8" spellcheck="false"></textarea>
+        <button id="render">渲染</button>
+      </details>
+      <div id="viewer"></div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

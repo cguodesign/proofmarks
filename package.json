@@ -19,7 +19,9 @@
     "typecheck": "pnpm -r typecheck",
     "verify:release": "pnpm build && pnpm typecheck && pnpm test && pnpm audit:security && pnpm audit:agent-docs && pnpm audit:package && pnpm audit:bundle && pnpm test:consumer && pnpm test:browser && pnpm test:pages && git diff --check",
     "build:pages": "node scripts/build-pages.mjs",
-    "test:pages": "pnpm build:pages && playwright test --config playwright.pages.config.ts"
+    "test:pages": "pnpm build:pages && playwright test --config playwright.pages.config.ts",
+    "demo:zhenhua": "pnpm --filter @proofmarks/demo-zhenhua dev",
+    "demo:diff-ink": "pnpm --filter @proofmarks/demo-diff-ink dev"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

@@ -11,7 +11,7 @@
 export const en = {
   common: {
     skipLink: "Skip to content",
-    wordmarkLabel: "re:proofmarks overview",
+    wordmarkLabel: "proofmarks overview",
     primaryNavigation: "Primary navigation",
     footerNavigation: "Footer navigation",
     nav: { demo: "Demo", getStarted: "Get started", marks: "Marks", docs: "Docs" },
@@ -31,7 +31,7 @@ export const en = {
     productSummary: "Proofreading notation on real, selectable browser text.",
   },
   meta: {
-    homeTitle: "re:proofmarks — Proofreading notation for the browser",
+    homeTitle: "proofmarks — Proofreading notation for the browser",
     homeDescription: "Traditional proofreading notation rendered around live browser typography.",
     getStartedDescription: "Install proofmarks, choose a notation, and render your first replace and insert corrections.",
     docsDescription: "Correction data, notation coverage, React and vanilla integration, helpers, layout room, errors, customization and sources for proofmarks.",

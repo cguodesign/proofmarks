@@ -4,7 +4,7 @@ import type { SiteDictionary } from "./en";
 export const ja: SiteDictionary = {
   common: {
     skipLink: "本文へ移動",
-    wordmarkLabel: "re:proofmarks ホーム",
+    wordmarkLabel: "proofmarks ホーム",
     primaryNavigation: "メインナビゲーション",
     footerNavigation: "フッターナビゲーション",
     nav: { demo: "デモ", getStarted: "はじめに", marks: "校正記号", docs: "ドキュメント" },
@@ -24,7 +24,7 @@ export const ja: SiteDictionary = {
     productSummary: "選択できるブラウザーの本文に、そのまま校正記号を書き込みます。",
   },
   meta: {
-    homeTitle: "re:proofmarks — ブラウザーのための校正記号",
+    homeTitle: "proofmarks — ブラウザーのための校正記号",
     homeDescription: "伝統的な校正記号を、ブラウザーで組まれた実際の文字の周りに描画します。",
     getStartedDescription: "proofmarks をインストールし、校正記号を選んで、最初の置換と挿入の訂正を表示します。",
     docsDescription: "proofmarks の訂正データ、記号の対応範囲、React とバニラ JS での組み込み、ヘルパー、余白、エラー、カスタマイズ、出典。",

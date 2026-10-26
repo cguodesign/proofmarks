@@ -24,7 +24,7 @@ for (const route of ["get-started", "playground", "marks", "references", "docs",
 writeFileSync(resolve(output, ".nojekyll"), "");
 writeFileSync(resolve(output, "404.html"), `<!doctype html>
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>Page not found — re:proofmarks</title><body>
-<main><h1>Page not found</h1><p><a href="${base}">Return to re:proofmarks</a></p></main>
+<title>Page not found — proofmarks</title><body>
+<main><h1>Page not found</h1><p><a href="${base}">Return to proofmarks</a></p></main>
 </body></html>\n`);
 console.log(`Pages artifact ready: ${output} (base ${base})`);
