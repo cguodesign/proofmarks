@@ -1,4 +1,4 @@
-# re:proofmarks
+# proofmarks
 
 Render traditional proofreading notation over normal browser content from plain, notation-neutral correction data.
 
