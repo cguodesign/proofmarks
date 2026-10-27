@@ -1,4 +1,5 @@
 import { execFileSync, spawn } from "node:child_process";
+import { once } from "node:events";
 import {
   cpSync,
   existsSync,
@@ -60,7 +61,6 @@ function verifyExpectedTypeError(cwd) {
       `The eight invalid public operations failed for unexpected reasons.\n${output}`,
     );
     console.log(`Expected public type errors verified: ${diagnostics.length}`);
-    console.log(output.trim());
     return;
   }
   throw new Error("Invalid public correction operations unexpectedly passed TypeScript.");
@@ -102,13 +102,28 @@ async function waitForServer(url, server, getLogs) {
   throw new Error(`Consumer preview did not start at ${url}.\n${getLogs()}`);
 }
 
+async function stopPreviewServer(server) {
+  if (server.exitCode !== null || server.signalCode !== null) return;
+  const closed = once(server, "close");
+  const forceKill = setTimeout(() => server.kill("SIGKILL"), 5_000);
+  forceKill.unref();
+  server.kill("SIGTERM");
+  try {
+    await closed;
+  } finally {
+    clearTimeout(forceKill);
+  }
+}
+
 async function verifyRuntime(fixtureName, consumerKind, consumerDirectory) {
   const port = await getFreePort();
   const url = `http://127.0.0.1:${port}`;
   let serverLogs = "";
+  // Own the actual server process; killing an npm launcher can leave its Vite
+  // child holding these pipes open and prevent this verification from exiting.
   const server = spawn(
-    "npm",
-    ["run", "preview", "--", "--host", "127.0.0.1", "--port", String(port), "--strictPort"],
+    process.execPath,
+    [join(consumerDirectory, "node_modules", "vite", "bin", "vite.js"), "preview", "--host", "127.0.0.1", "--port", String(port), "--strictPort"],
     {
       cwd: consumerDirectory,
       env: { ...process.env, NPM_CONFIG_CACHE: npmCache },
@@ -228,8 +243,11 @@ async function verifyRuntime(fixtureName, consumerKind, consumerDirectory) {
     assert(runtimeErrors.length === 0, `${fixtureName} logged runtime errors: ${runtimeErrors.join("\n")}`);
     return { fixtureName, url, runtimeErrors: runtimeErrors.length };
   } finally {
-    await browser?.close();
-    server.kill("SIGTERM");
+    try {
+      await browser?.close();
+    } finally {
+      await stopPreviewServer(server);
+    }
   }
 }
 
