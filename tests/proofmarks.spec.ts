@@ -587,6 +587,11 @@ test("wrapped stress target reflows and escalates to explicit generic fallback",
 
   const semanticBefore = await page.locator("#semantic-json").textContent();
   await page.getByLabel("Vertical").check();
+  // Force multiple columns independently of the platform's CJK font metrics.
+  await page.locator("#proof-document").evaluate((element) => {
+    element.style.inlineSize = "8em";
+    element.style.minInlineSize = "0";
+  });
   await waitForRender(page);
   expect((await getTargetRects(page)).length).toBeGreaterThan(1);
   await expect(page.locator('[data-operation="delete"]')).toHaveAttribute(

@@ -310,8 +310,31 @@ test("wrapped multi-rect fallback keeps one payload connected to the aggregate t
   await expect(page.locator("[data-correction-id][data-layout-candidate]")).toHaveCount(1);
   await expect(page.locator('[data-proofmarks-role="leader"]')).toHaveCount(1);
   await page.getByLabel("Vertical").check();
+  // Force multiple columns independently of the platform's CJK font metrics.
+  await page.locator("#proof-document").evaluate((element) => {
+    element.style.inlineSize = "8em";
+    element.style.minInlineSize = "0";
+  });
   await waitForLayout(page);
-  expect(Number(await overlay.getAttribute("data-client-rect-count"))).toBeGreaterThan(1);
+  const verticalLayout = await page.locator("#proof-document").evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      writingMode: style.writingMode,
+      inlineSize: style.inlineSize,
+      minInlineSize: style.minInlineSize,
+      fontFamily: style.fontFamily,
+      fontSize: style.fontSize,
+      whiteSpace: style.whiteSpace,
+      wordBreak: style.wordBreak,
+      clientHeight: element.clientHeight,
+      scrollHeight: element.scrollHeight,
+      text: element.firstChild?.textContent,
+    };
+  });
+  expect(
+    Number(await overlay.getAttribute("data-client-rect-count")),
+    JSON.stringify(verticalLayout),
+  ).toBeGreaterThan(1);
   await expect(page.locator("[data-proofmarks-overlay]")).toHaveCount(1);
 });
 

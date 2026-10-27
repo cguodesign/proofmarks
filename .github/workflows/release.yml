@@ -28,6 +28,8 @@ jobs:
       - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - name: Install CJK fonts for vertical text fixtures
+        run: sudo apt-get install --yes --no-install-recommends fonts-noto-cjk
       - run: pnpm verify:release
 
   deploy:

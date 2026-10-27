@@ -1,10 +1,8 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.0 — 2026-10-27
 
-Release candidate frozen on 2026-10-25; npm publication and the release tag are
-pending. This will be the first public release. Internal task milestones were
-not public releases.
+The first public release. Internal task milestones were not public releases.
 
 ### Rendering
 
