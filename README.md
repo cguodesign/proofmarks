@@ -2,10 +2,6 @@
 
 Render traditional proofreading notation over normal browser content from plain, notation-neutral correction data.
 
-Version 0.1.0 is a release candidate and is not yet available from npm. To
-evaluate it now, clone this repository and run `pnpm install --frozen-lockfile`,
-then `pnpm build` or `pnpm dev`.
-
 `proofmarks` is the public wordmark, npm package name, and JavaScript import root.
 
 ```bash
