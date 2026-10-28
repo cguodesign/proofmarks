@@ -31,8 +31,10 @@ Follow these rules whenever you work with the `proofmarks` library:
    fewer corrections.
 8. Keep React declarative; it reports invalid data as `invalid-corrections`
    through `onIssue`. In vanilla code, update the instance, catch errors from
-   create/update, and destroy it on teardown. Stale marks are cleared when the
-   text changed. Preserve real selectable and accessible browser text.
+   create/update, and destroy it on teardown. On validation failure, old marks
+   clear only if source text changed. Valid offsets can still target the wrong
+   words; rebase or regenerate corrections whenever text changes. Preserve real
+   selectable and accessible browser text.
 9. Treat `showProofmarks` and `appearance` as presentation only. The renderer
    draws supplied corrections; optional `proofmarks/helpers` utilities
    (`correctionsFromDiff`, `applyCorrections`) help the app author them, and

@@ -21,7 +21,7 @@ Agent contract:
 - Correction JSON is notation-neutral; never encode proof symbols or geometry.
 - Do not guess between jis, gb, cns3927, ks, and enUS. Ask when the convention is unspecified, or expose a picker so end users choose.
 - Reserve room: `padding: 44px 20px` and `line-height: 1.8` on the root; start with 3–6 word-level corrections across 2–4 lines. Handle `insufficient-room` (its `collisions` field says what overlaps).
-- Handle `onIssue`; never fabricate unsupported notation. React reports `invalid-corrections`; vanilla create/update throw. Stale marks are cleared when the text changed. Right-to-left text reports `unverified-direction`.
+- Handle `onIssue`; never fabricate unsupported notation. React reports `invalid-corrections`; vanilla create/update throw. On validation failure, old marks clear only when source text changed. Valid offsets can still target the wrong words; rebase or regenerate corrections whenever text changes. Right-to-left text reports `unverified-direction`.
 - The renderer draws supplied data. Optional `proofmarks/helpers` (findRange, offsetsFromSelection, getSourceText, correctionsFromDiff, applyCorrections) help the app author it; `applyCorrections` throws on conflicting corrections.
 - Treat `showProofmarks`, `appearance`, and the constrained `markStyle` fields as presentation only. Editorial motion uses Web Animations; set `animate: false` before capture only for exporters that copy computed styles.
 - Preserve native selectable, copyable, accessible text.

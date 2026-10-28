@@ -10,7 +10,7 @@ function sizeChanged(previous: { width: number; height: number }, width: number,
   return Math.abs(width - previous.width) > 0.5 || Math.abs(height - previous.height) > 0.5;
 }
 
-/** One observer and frame per document; every measurement precedes every write. */
+/** One shared ResizeObserver and frame per document; measurements precede writes. */
 class RenderScheduler {
   private jobs = new Map<Element, RenderJob>();
   private pending = new Set<RenderJob>();

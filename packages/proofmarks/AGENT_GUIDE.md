@@ -33,9 +33,9 @@ secondary reference.
   2–4 lines. `insufficient-room` lists `collisions` (`source-text`,
   `exits-paper`, `annotation`); add room or show fewer corrections.
 - Errors: React reports invalid data as `invalid-corrections` through `onIssue`;
-  vanilla create/update throw. If the source text changed since the last render,
-  stale marks are cleared; unchanged text keeps the last valid frame. Never
-  silently repair offsets.
+  vanilla create/update throw. On validation failure, changed source clears old
+  marks; unchanged source keeps the last valid frame. Bounds-valid offsets can
+  still target the wrong words; rebase or regenerate them whenever text changes.
 - Boundaries: keep real text selectable and accessible; the overlay is
   `aria-hidden` and copy returns source text only. The renderer draws supplied
   data; it does not own editor state, accept/reject, collaboration,

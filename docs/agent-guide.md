@@ -167,10 +167,10 @@ line-height, or by showing fewer corrections.
   change and `destroy` on teardown.
 - Invalid data: React never throws for it; it reports `invalid-corrections`
   through `onIssue`. Vanilla `createProofmarks` and `update` throw; catch them.
-  Observer-driven refreshes report through `onIssue`. If the source text changed
-  since the last render, stale marks are cleared; if the text is unchanged, the
-  last valid frame stays. Never silently repair offsets: rebase or regenerate
-  the corrections when the text changes.
+  Observer-driven refreshes report through `onIssue`. On validation failure,
+  changed source clears old marks; unchanged source keeps the last valid frame.
+  Bounds-valid offsets may still target the wrong words; this is not detected.
+  Rebase or regenerate corrections whenever text changes.
 - Server rendering emits source content; the overlay attaches in the browser.
 - `showProofmarks` changes only overlay visibility. It does not accept, reject,
   apply, or erase corrections.

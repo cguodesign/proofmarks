@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 
-import { StrictMode, act } from "react";
+import { StrictMode, act, useState } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { enUS, gb, jis } from "./notations";
 import { Proofmarks } from "./react";
-import type { Correction } from "./schema";
+import type { Correction, ProofmarksIssue, ProofmarksMarkStyle } from "./schema";
 
 class TestResizeObserver {
   static active = 0;
@@ -98,6 +98,74 @@ afterEach(() => {
 });
 
 describe("Proofmarks React lifecycle", () => {
+  it.each([
+    ["object color", () => ({ ink: {} as never })],
+    ["array style", () => [] as unknown as ProofmarksMarkStyle],
+  ] as const)("settles state-driven diagnostics for malformed JS %s input", async (_name, getStyle) => {
+    const host = document.createElement("div");
+    document.body.append(host);
+    const root = createRoot(host);
+    const reports: ProofmarksIssue[] = [];
+    function Host() {
+      const [issue, setIssue] = useState<ProofmarksIssue>();
+      return <><output>{issue?.code}</output><Proofmarks notation={enUS} corrections={[]}
+        markStyle={getStyle()} onIssue={(next) => {
+          reports.push(next);
+          if (reports.length < 6) setIssue(next);
+        }}>The editor reads.</Proofmarks></>;
+    }
+    try {
+      await act(async () => root.render(<Host />));
+      expect(reports).toHaveLength(1);
+      expect(host.querySelector("output")?.textContent).toBe(reports[0]!.code);
+      expect(host.querySelectorAll("[data-proofmarks-overlay]")).toHaveLength(1);
+    } finally {
+      await act(async () => root.unmount());
+    }
+  });
+
+  it.each([
+    { ink: "not-a-css-color" },
+    { strokeScale: 9 },
+    { opacity: Number.NaN },
+  ] satisfies ProofmarksMarkStyle[])("settles state-driven style diagnostics for %j", async (markStyle) => {
+    const host = document.createElement("div");
+    document.body.append(host);
+    const root = createRoot(host);
+    const reports: ProofmarksIssue[] = [];
+    const nextCallback = vi.fn();
+    function Host({ value, onReport }: { value: ProofmarksMarkStyle; onReport?: (issue: ProofmarksIssue) => void }) {
+      const [issue, setIssue] = useState<ProofmarksIssue>();
+      return <>
+        <output>{issue?.code}</output>
+        <Proofmarks notation={enUS} corrections={[]} markStyle={{ ...value }}
+          onIssue={(next) => {
+            reports.push(next);
+            onReport?.(next);
+            // Bound the old failure so this regression cannot hang the suite.
+            if (reports.length < 6) setIssue(next);
+          }}>
+          The editor reads.
+        </Proofmarks>
+      </>;
+    }
+    try {
+      await act(async () => root.render(<Host value={markStyle} />));
+      expect(reports).toHaveLength(1);
+      expect(host.querySelector("output")?.textContent).toBe(reports[0]!.code);
+      await act(async () => root.render(<Host value={{ ...markStyle }} onReport={nextCallback} />));
+      expect(reports).toHaveLength(1);
+      expect(nextCallback).not.toHaveBeenCalled();
+      await act(async () => root.render(<Host value={{ ink: "red", strokeScale: 1, opacity: 1 }} onReport={nextCallback} />));
+      await act(async () => root.render(<Host value={markStyle} onReport={nextCallback} />));
+      expect(reports).toHaveLength(2);
+      expect(nextCallback).toHaveBeenCalledTimes(1);
+      expect(host.querySelectorAll("[data-proofmarks-overlay]")).toHaveLength(1);
+    } finally {
+      await act(async () => root.unmount());
+    }
+  });
+
   it("keeps unrelated React content and clears stale marks when text outruns corrections", async () => {
     const host = document.createElement("div");
     document.body.append(host);

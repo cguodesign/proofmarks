@@ -57,7 +57,7 @@ Annotations are drawn inside the root's box. Start with padding: 44px 20px and l
 
 In React, change notation, corrections, appearance, showProofmarks, and markStyle declaratively. Do not call createProofmarks for the same element. Inline option objects and callbacks do not repaint. In vanilla code, call update and destroy. Server rendering emits source content; the overlay attaches in the browser.
 
-Invalid data: React reports invalid-corrections through onIssue and does not throw. Vanilla createProofmarks and update throw; catch them. Observer-driven refreshes report through onIssue. If the source text changed since the last render, stale marks are cleared; unchanged text keeps the last valid frame. Never silently repair offsets; rebase or regenerate corrections when text changes.
+Invalid data: React reports invalid-corrections through onIssue and does not throw. Vanilla createProofmarks and update throw; catch them. Observer-driven refreshes report through onIssue. On validation failure, changed source clears old marks; unchanged source keeps the last valid frame. Bounds-valid offsets can still target the wrong words; Proofmarks cannot detect that mismatch. Rebase or regenerate corrections whenever text changes.
 
 showProofmarks controls overlay visibility only. appearance and markStyle change presentation only. markStyle is limited to ink, labelInk, strokeScale, and opacity; never use it to invent geometry. These controls do not apply, accept, reject, or erase corrections. Preserve native selectable, copyable, accessible browser text; the overlay is aria-hidden and non-selectable, so copy returns source text only. Do not replace text with canvas or duplicated typesetting.
 

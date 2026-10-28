@@ -31,8 +31,10 @@ When adding or changing Proofmarks integration:
   (its `collisions` field says what overlaps) by adding room or showing fewer.
 - In React, update props declaratively; invalid data reports
   `invalid-corrections` through `onIssue`. In vanilla code, call `update` and
-  `destroy`, and catch errors from create/update. Stale marks are cleared when
-  the text changed. Do not use both lifecycles on one element.
+  `destroy`, and catch errors from create/update. On validation failure, old
+  marks clear only if source text changed. Valid offsets can still target the
+  wrong words; rebase or regenerate corrections whenever text changes.
+  Do not use both lifecycles on one element.
 - Preserve native selectable, copyable, accessible text. `showProofmarks` hides
   only the overlay; it does not apply or reject corrections.
 - Use `markStyle` only for `ink`, `labelInk`, `strokeScale`, and `opacity`.

@@ -239,6 +239,31 @@ describe("createProofmarks visibility", () => {
     instance.destroy();
   });
 
+  it("reports changed invalid styles while deduplicating equal inputs and detecting in-place edits", () => {
+    const element = document.createElement("p");
+    element.textContent = "The editor reads.";
+    document.body.append(element);
+    const first = vi.fn();
+    const latest = vi.fn();
+    const markStyle = { ink: "not a color" };
+    const instance = createProofmarks(element, { notation: enUS, corrections: [], markStyle, onIssue: first });
+    expect(first).toHaveBeenCalledTimes(1);
+    instance.update({ notation: enUS, corrections: [], markStyle: { ...markStyle }, onIssue: latest });
+    expect(latest).not.toHaveBeenCalled();
+    markStyle.ink = "another invalid color";
+    instance.update({ notation: enUS, corrections: [], markStyle, onIssue: latest });
+    expect(latest).toHaveBeenCalledTimes(1);
+    markStyle.ink = "red";
+    instance.update({ notation: enUS, corrections: [], markStyle, onIssue: latest });
+    expect(element.querySelector<SVGSVGElement>("svg")!.style.getPropertyValue("--proofmarks-mark-ink")).toBe("red");
+    markStyle.ink = "another invalid color";
+    instance.update({ notation: enUS, corrections: [], markStyle, onIssue: latest });
+    expect(latest).toHaveBeenCalledTimes(2);
+    expect(element.querySelector<SVGSVGElement>("svg")!.style.getPropertyValue("--proofmarks-mark-ink")).toBe("");
+    expect(first).toHaveBeenCalledTimes(1);
+    instance.destroy();
+  });
+
   it("renders adjacent spacing, delete/insert, and neighboring replacement targets", () => {
     const fixtures = [
       {
