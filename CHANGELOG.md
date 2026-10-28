@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Stop repeated invalid-style diagnostics from sustaining React state updates;
+  changed inputs and recovery still validate and report normally.
+- Preserve the first editorial animation when an unsupported scene has no marks.
+- Correct lifecycle, error, measurement and scheduling descriptions across the
+  website's five languages and public guides.
+
 ## 0.1.0 — 2026-10-27
 
 The first public release. Internal task milestones were not public releases.

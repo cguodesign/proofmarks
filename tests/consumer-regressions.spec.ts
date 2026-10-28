@@ -6,6 +6,42 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
+test("an unsupported empty scene preserves the first visible editorial animation", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  const result = await page.evaluate(async (base) => {
+    const { createProofmarks } = await import(`${base}/index.ts`);
+    const { enUS } = await import(`${base}/notations.ts`);
+    const element = document.createElement("p");
+    element.style.cssText = "writing-mode:vertical-rl;height:400px;padding:44px 20px;font:24px/1.8 serif";
+    element.textContent = "The editor reads.";
+    document.body.prepend(element);
+    const options = {
+      notation: enUS, appearance: "editorial",
+      corrections: [{ id: "delete-editor", type: "delete", target: { kind: "text-range", start: 4, end: 10 } }],
+    };
+    const proof = createProofmarks(element, options);
+    const frame = () => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+    await frame();
+    const emptyPaths = element.querySelectorAll("path").length;
+    const emptyAnimations = element.getAnimations({ subtree: true }).length;
+    element.style.writingMode = "horizontal-tb";
+    proof.update(options);
+    await frame();
+    const visiblePaths = element.querySelectorAll("path").length;
+    const firstAnimations = element.getAnimations({ subtree: true }).length;
+    proof.update({ ...options, markStyle: { ink: "red" } });
+    await frame();
+    const laterAnimations = element.getAnimations({ subtree: true }).length;
+    proof.destroy();
+    return { emptyPaths, emptyAnimations, visiblePaths, firstAnimations, laterAnimations };
+  }, sourceBase);
+  expect(result.emptyPaths).toBe(0);
+  expect(result.emptyAnimations).toBe(0);
+  expect(result.visiblePaths).toBeGreaterThan(0);
+  expect(result.firstAnimations).toBeGreaterThan(0);
+  expect(result.laterAnimations).toBe(0);
+});
+
 test("source selection and real clipboard exclude labels; cloned editorial SVG retains ink", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   const result = await page.evaluate(async (base) => {

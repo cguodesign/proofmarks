@@ -357,6 +357,20 @@ function markStylesEqual(
     left?.labelInk === right?.labelInk;
 }
 
+const invalidStyleInput = Symbol("invalid-style-input");
+
+function styleInputValue(value: unknown): unknown {
+  // Malformed JS values have no rendering semantics. A fresh object or symbol
+  // must not restart the same diagnostic/state feedback on every commit.
+  return value === undefined || typeof value === "string" || typeof value === "number"
+    ? value : invalidStyleInput;
+}
+
+function markStyleInputValues(value: ProofmarksMarkStyle | undefined): readonly unknown[] {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return [styleInputValue(value)];
+  return [value.ink, value.labelInk, value.strokeScale, value.opacity].map(styleInputValue);
+}
+
 function correctionValuesKey(corrections: readonly Correction[]): string {
   return JSON.stringify(corrections.map((correction) => [
     correction.id,
@@ -377,6 +391,7 @@ export function createProofmarks(
   const view = container.ownerDocument.defaultView;
   if (!view) throw new Error("Proofmarks requires a browser document.");
   validateSourceCorrections(container, options.corrections);
+  const initialMarkStyleInput = markStyleInputValues(options.markStyle);
   const initialMarkStyle = normalizeMarkStyle(
     container.ownerDocument,
     options.markStyle,
@@ -404,6 +419,7 @@ export function createProofmarks(
   let stopMotion = (): void => {};
   let invalidMessage: string | undefined;
   let currentOptions = { ...options, markStyle: initialMarkStyle };
+  let currentMarkStyleInput = initialMarkStyleInput;
   let reportedIssues = new Set<string>();
   let reportedDirection = false;
   let previousPlacements = new Map<string, AnnotationPlacement>();
@@ -583,7 +599,7 @@ export function createProofmarks(
           0,
         ),
       );
-      if (!hasAnimated && scenes.length > 0 && currentOptions.appearance === "editorial") {
+      if (!hasAnimated && scenes.some((scene) => scene.nodes.length > 0) && currentOptions.appearance === "editorial") {
         hasAnimated = true;
         replay();
       }
@@ -693,7 +709,12 @@ export function createProofmarks(
         clearStaleOverlay();
         throw error;
       }
-      const nextMarkStyle = normalizeMarkStyle(
+      const nextMarkStyleInput = markStyleInputValues(nextOptions.markStyle);
+      const sameMarkStyleInput = currentMarkStyleInput.length === nextMarkStyleInput.length &&
+        currentMarkStyleInput.every((value, index) => Object.is(value, nextMarkStyleInput[index]));
+      // Reporting the same invalid input on every React commit can feed a
+      // state-setting onIssue callback back into this update indefinitely.
+      const nextMarkStyle = sameMarkStyleInput ? currentOptions.markStyle : normalizeMarkStyle(
         container.ownerDocument,
         nextOptions.markStyle,
         nextOptions.onIssue,
@@ -709,6 +730,7 @@ export function createProofmarks(
         (currentOptions.debug ?? false) === (nextOptions.debug ?? false) &&
         markStylesEqual(currentOptions.markStyle, nextMarkStyle);
       currentOptions = { ...nextOptions, markStyle: nextMarkStyle };
+      currentMarkStyleInput = nextMarkStyleInput;
       correctionsKey = nextCorrectionsKey;
       if (currentOptions.animate === false) {
         ++motionVersion;

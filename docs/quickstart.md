@@ -191,16 +191,17 @@ instance.
 
 ## Updates, motion, and export
 
-React catches invalid or stale correction data and reports `invalid-corrections`
-through `onIssue` instead of throwing. If the source text changed since the last
-render, the stale marks are cleared so none point at the wrong words; if the
-text is unchanged, the previous valid overlay stays (an invalid first mount shows
-an empty overlay). Corrected props recover automatically. Vanilla
-`createProofmarks` and `update` still throw for invalid data, with the same
-clearing rule; catch those calls. Observer-driven refreshes report through
-`onIssue` without an uncaught error. Validation messages include the correction
-ID when available. Proofmarks never repairs offsets: rebase or regenerate the
-corrections when the text changes.
+React catches correction validation failures and reports `invalid-corrections`
+through `onIssue` instead of throwing. If validation fails and the source text
+changed since the last render, old marks are cleared. If validation fails while
+the source is unchanged, the previous valid overlay stays (an invalid first mount
+shows an empty overlay). Corrected props recover automatically. Vanilla
+`createProofmarks` and `update` throw wrapped validation errors with the original
+error in `cause`, using the same clearing rule; catch those calls. Observer-driven
+refreshes report through `onIssue`. Validation messages include the correction ID
+when available. Bounds-valid offsets can still point at the wrong words;
+Proofmarks cannot detect that semantic mismatch or repair offsets. Rebase or
+regenerate corrections whenever the text changes.
 
 Inline `markStyle`, correction arrays with identical values, and callback changes
 do not repaint the overlay. `update` replaces the full options object; keep the
@@ -215,7 +216,7 @@ replay. Animations use browser effects, so cloned SVG contains the final ink
 without embedded animation styles. For screenshot libraries that copy computed
 styles, disable animation **before** invoking the exporter and await the React
 commit if changing a prop. You do not need to remove internal SVG nodes. A
-window resize redraws only instances whose measured size changed.
+window resize redraws only instances whose measured layout changed.
 
 `onRender({ fidelity, fallbackCount, layoutMs })` reports each completed render.
 `fidelity` contains one entry per correction in dependency order; `layoutMs`
