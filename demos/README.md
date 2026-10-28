@@ -1,5 +1,8 @@
 # Demos
 
+These apps live in the public repository as runnable source examples. Both are
+private workspace packages and are excluded from the `proofmarks` npm package.
+
 Small, self-contained apps built on Proofmarks the way an outside developer would
 use it. Each one depends on `proofmarks` from this workspace and imports only its
 public entry points (`proofmarks`, `proofmarks/react`, `proofmarks/notations`,
